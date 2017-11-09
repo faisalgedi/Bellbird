@@ -1,0 +1,2171 @@
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (6.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateAlarms (20171109182310)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "alarms" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "reason" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171109182310"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-11-09 18:23:16.837565"], ["updated_at", "2017-11-09 18:23:16.837565"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 13:23:58 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (7.4ms)
+  Rendered alarms/new.html.erb within layouts/application (9.3ms)
+Completed 200 OK in 399ms (Views: 385.7ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 13:24:10 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"CXyVYUzVSvO65nePuV3PgRsH7/ZoAdAldYWYSr0WEuuDrXuF3fJwGLdmXU6c32KBhYafDYHcgIg8VVo/wPFvJw==", "alarm"=>{"name"=>"HEY", "reason"=>"Come outside"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "HEY"], ["reason", "Come outside"], ["created_at", "2017-11-09 18:24:10.968730"], ["updated_at", "2017-11-09 18:24:10.968730"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/1
+Completed 302 Found in 6ms (ActiveRecord: 1.2ms)
+
+
+Started GET "/alarms/1" for 127.0.0.1 at 2017-11-09 13:24:10 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 19ms (Views: 15.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:24:14 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 21ms (Views: 19.4ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/1" for 127.0.0.1 at 2017-11-09 13:25:13 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"ELZtANqNeuv3afokafJ2FRWNSiThaFeKfGn3Bji2BxeaZ4PkS6pAAPrp0OVMcNsViww63wi1Byc1uTVzRVF62w==", "id"=>"1"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 1]]
+  [1m[35m (6.0ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 9ms (ActiveRecord: 6.6ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:25:13 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 19ms (Views: 15.9ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 13:25:15 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (3.9ms)
+  Rendered alarms/new.html.erb within layouts/application (6.1ms)
+Completed 200 OK in 37ms (Views: 35.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 13:26:43 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (7.0ms)
+  Rendered alarms/new.html.erb within layouts/application (8.5ms)
+Completed 200 OK in 132ms (Views: 118.5ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 13:26:51 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"6uzxRtfalOw8FAj8fFh6TMDZu7P2+WxMDKym8sNaByBgPR+iRv2uBzGUIj1Z2tdMXljLSB8kPOFFfGSHvr167A==", "alarm"=>{"name"=>"1", "reason"=>"yo"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "1"], ["reason", "yo"], ["created_at", "2017-11-09 18:26:51.270227"], ["updated_at", "2017-11-09 18:26:51.270227"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/2
+Completed 302 Found in 6ms (ActiveRecord: 1.7ms)
+
+
+Started GET "/alarms/2" for 127.0.0.1 at 2017-11-09 13:26:51 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 18ms (Views: 13.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:26:53 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 36ms (Views: 34.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:27:59 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 19ms (Views: 17.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 13:28:03 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (2.4ms)
+  Rendered alarms/new.html.erb within layouts/application (4.2ms)
+Completed 200 OK in 26ms (Views: 24.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 13:28:09 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ED8nKhdVX8di1sy1R6I0mdBoJmp2ytiAk/sLb4rjYHlmsWFQgQTzOz23S7wnucvWoI4lmsvtO/81zzh2pE5f5g==", "alarm"=>{"name"=>"test", "reason"=>"test"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "test"], ["reason", "test"], ["created_at", "2017-11-09 18:28:09.954691"], ["updated_at", "2017-11-09 18:28:09.954691"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/3
+Completed 302 Found in 4ms (ActiveRecord: 1.1ms)
+
+
+Started GET "/alarms/3" for 127.0.0.1 at 2017-11-09 13:28:09 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 21ms (Views: 18.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:28:12 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (4.5ms)
+Completed 200 OK in 24ms (Views: 22.7ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:31:06 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+SyntaxError (/Users/faisalgedi/Desktop/alarms/app/controllers/alarms_controller.rb:13: syntax error, unexpected tINTEGER, expecting keyword_end
+    GET /alarms/1
+                 ^):
+  
+app/controllers/alarms_controller.rb:13: syntax error, unexpected tINTEGER, expecting keyword_end
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:31:17 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (5.6ms)
+Completed 200 OK in 153ms (Views: 150.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:31:32 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (5.9ms)
+Completed 200 OK in 121ms (Views: 112.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 13:31:35 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (10.3ms)
+  Rendered alarms/new.html.erb within layouts/application (12.0ms)
+Completed 200 OK in 29ms (Views: 27.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 13:31:41 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"r3T9C+CmYw4rUpSmgrTLxKvdXN8PU+J5+hRArQMDMHDZ+rtxdvfP8nQzE6/irzSL2ztfL7J0AQZcIHO0La4P7w==", "alarm"=>{"name"=>"test2", "reason"=>"test2"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "test2"], ["reason", "test2"], ["created_at", "2017-11-09 18:31:41.756741"], ["updated_at", "2017-11-09 18:31:41.756741"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/4
+Completed 302 Found in 6ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/alarms/4" for 127.0.0.1 at 2017-11-09 13:31:41 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 31ms (Views: 27.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:31:48 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 21ms (Views: 19.1ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:32:24 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (6.0ms)
+Completed 200 OK in 123ms (Views: 114.2ms | ActiveRecord: 0.6ms)
+
+
+Started DELETE "/alarms/2" for 127.0.0.1 at 2017-11-09 13:32:29 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"sRZjgw+7doG5mYwhieVGicW3CoH1kDU6eMyy44BrxA87x41nnpxMarQZpuCsZ+uJWzZ6ehxNZZcxHHCW/Yy5ww==", "id"=>"2"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 2]]
+  [1m[35m (6.3ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 12ms (ActiveRecord: 7.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:32:29 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 13ms (Views: 11.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:32:31 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 15ms (Views: 13.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:33:36 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (5.9ms)
+Completed 200 OK in 20ms (Views: 17.3ms | ActiveRecord: 0.7ms)
+
+
+Started DELETE "/alarms/3" for 127.0.0.1 at 2017-11-09 13:33:39 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"9U7A0kLT1q4wm/J7TQPw9aoCb+4Na+GfE3daZhtVqWZ/ny420/TsRT0b2LpogV31NIMfFeS2sTJap5gTZrLUqg==", "id"=>"3"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 3]]
+  [1m[35m (6.4ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 11ms (ActiveRecord: 7.9ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:33:39 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 19ms (Views: 17.0ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 13:33:44 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (17.4ms)
+  Rendered alarms/new.html.erb within layouts/application (20.3ms)
+Completed 200 OK in 50ms (Views: 47.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 13:33:48 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"awDw93Humr6qo9DKN/WpxWN0TsR43u416513Wa0IMA4djraN5782QvXCV8NX7laKE5JNNMX5DUpNqURAg6UPkQ==", "alarm"=>{"name"=>"test3", "reason"=>"test3"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "test3"], ["reason", "test3"], ["created_at", "2017-11-09 18:33:48.359807"], ["updated_at", "2017-11-09 18:33:48.359807"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/5
+Completed 302 Found in 5ms (ActiveRecord: 1.3ms)
+
+
+Started GET "/alarms/5" for 127.0.0.1 at 2017-11-09 13:33:48 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 20ms (Views: 17.8ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms/5/edit" for 127.0.0.1 at 2017-11-09 13:33:55 -0500
+Processing by AlarmsController#edit as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering alarms/edit.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (2.6ms)
+  Rendered alarms/edit.html.erb within layouts/application (5.5ms)
+Completed 200 OK in 39ms (Views: 36.3ms | ActiveRecord: 0.1ms)
+
+
+Started PATCH "/alarms/5" for 127.0.0.1 at 2017-11-09 13:33:57 -0500
+Processing by AlarmsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"GtUq3QwCLS7VDQC+IV7XRzYh1Y8I+HJxfI/mk3lwil/Ke5vQdK2ONyH/zWDTAcom6XBDBEhqMnv4ATUk0WIutQ==", "alarm"=>{"name"=>"test3", "reason"=>"test3"}, "commit"=>"Update Alarm", "id"=>"5"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/5
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/5" for 127.0.0.1 at 2017-11-09 13:33:57 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 16ms (Views: 14.0ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:33:59 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 18ms (Views: 16.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/4" for 127.0.0.1 at 2017-11-09 13:34:26 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mAlarm Load (0.3ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 32ms (Views: 18.0ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:34:33 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 24ms (Views: 21.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/4" for 127.0.0.1 at 2017-11-09 13:34:38 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 22ms (Views: 19.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/4/edit" for 127.0.0.1 at 2017-11-09 13:34:38 -0500
+Processing by AlarmsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering alarms/edit.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (3.0ms)
+  Rendered alarms/edit.html.erb within layouts/application (5.4ms)
+Completed 200 OK in 29ms (Views: 26.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:34:57 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 20ms (Views: 17.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/4" for 127.0.0.1 at 2017-11-09 13:34:59 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 17ms (Views: 15.1ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:35:01 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 19ms (Views: 17.4ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms/4" for 127.0.0.1 at 2017-11-09 13:35:02 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 20ms (Views: 17.8ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:35:03 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 21ms (Views: 18.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/4" for 127.0.0.1 at 2017-11-09 13:35:09 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 28ms (Views: 25.9ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms/4" for 127.0.0.1 at 2017-11-09 13:35:18 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 16ms (Views: 13.5ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:35:20 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 20ms (Views: 18.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/4" for 127.0.0.1 at 2017-11-09 13:35:21 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mAlarm Load (0.3ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 22ms (Views: 19.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:35:22 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 18ms (Views: 16.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/5" for 127.0.0.1 at 2017-11-09 13:35:23 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 21ms (Views: 17.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:35:23 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 21ms (Views: 19.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:43:08 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 17ms (Views: 15.8ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 13:43:10 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (1.9ms)
+  Rendered alarms/new.html.erb within layouts/application (3.8ms)
+Completed 200 OK in 24ms (Views: 21.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 13:43:16 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"dLGM/r95Buu6jy1cjmN+2jg2nTcpeYqtHQNKvW+5j8UCP8qEKSiqF+XuqlXueIGVSNCex5ReadK7N3mkQRSwWg==", "alarm"=>{"name"=>"test4", "reason"=>"test4"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "test4"], ["reason", "test4"], ["created_at", "2017-11-09 18:43:16.042141"], ["updated_at", "2017-11-09 18:43:16.042141"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/6
+Completed 302 Found in 4ms (ActiveRecord: 1.0ms)
+
+
+Started GET "/alarms/6" for 127.0.0.1 at 2017-11-09 13:43:16 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"6"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 16ms (Views: 13.7ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:43:18 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 22ms (Views: 19.9ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/4" for 127.0.0.1 at 2017-11-09 13:43:21 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"1OXrY1Inuqqmo4yJWbJbb7ezo4KFa8D/nlme2Xr2nqteNAWHwwCAQasjpkh8MPZvKTLTeWy2kFLXiVysBxHjZw==", "id"=>"4"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 4]]
+  [1m[35m (6.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 9ms (ActiveRecord: 6.7ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:43:21 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 18ms (Views: 16.0ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms/5" for 127.0.0.1 at 2017-11-09 13:43:54 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 27ms (Views: 23.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/5" for 127.0.0.1 at 2017-11-09 13:44:33 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 20ms (Views: 11.6ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:44:35 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 21ms (Views: 18.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:44:36 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 16ms (Views: 14.0ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:44:59 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (5.8ms)
+Completed 200 OK in 20ms (Views: 17.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:45:46 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (6.0ms)
+Completed 200 OK in 21ms (Views: 19.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/5" for 127.0.0.1 at 2017-11-09 13:45:48 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 25ms (Views: 21.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:45:49 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 25ms (Views: 23.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:45:52 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 30ms (Views: 27.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 13:45:53 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (3.6ms)
+  Rendered alarms/new.html.erb within layouts/application (6.1ms)
+Completed 200 OK in 34ms (Views: 32.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 13:45:58 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"yqHySwBEMYsS14/d5N109Y1US0usDn7Nm7GrvXqTp9S8L7QxlhWdd022CNSExou6/bJIuxEpnbI9hZikVD6YSw==", "alarm"=>{"name"=>"test5", "reason"=>"test5"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "test5"], ["reason", "test5"], ["created_at", "2017-11-09 18:45:58.188611"], ["updated_at", "2017-11-09 18:45:58.188611"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+Completed 500 Internal Server Error in 70ms (ActiveRecord: 1.3ms)
+
+
+  
+SocketError (Failed to open TCP connection to www.handshake-bellbird.com:80 (getaddrinfo: nodename nor servname provided, or not known)):
+  
+app/controllers/alarms_controller.rb:34:in `block in create'
+app/controllers/alarms_controller.rb:29:in `create'
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:46:17 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (6.1ms)
+Completed 200 OK in 27ms (Views: 23.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/alarms/7" for 127.0.0.1 at 2017-11-09 13:46:19 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 19ms (Views: 16.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:46:20 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 20ms (Views: 17.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 13:46:21 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (2.9ms)
+  Rendered alarms/new.html.erb within layouts/application (5.0ms)
+Completed 200 OK in 24ms (Views: 21.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 13:46:26 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"GpTREc2gzZ8ltIhvQizO/myVW2KoloI1MRCWx7bzT7RsGpdrW/FhY3rVD2YiNzGxHHNYkhWxYUqXJKXemF5wKw==", "alarm"=>{"name"=>"test6", "reason"=>"test6"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "test6"], ["reason", "test6"], ["created_at", "2017-11-09 18:46:26.244584"], ["updated_at", "2017-11-09 18:46:26.244584"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/8
+Completed 302 Found in 5ms (ActiveRecord: 1.5ms)
+
+
+Started GET "/alarms/8" for 127.0.0.1 at 2017-11-09 13:46:26 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"8"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 19ms (Views: 16.0ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:46:27 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 25ms (Views: 22.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:48:13 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (5.4ms)
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.2ms)
+
+
+  
+ActionView::Template::Error (undefined method `votes' for #<Alarm:0x00007fc54fee0fb8>):
+    16:       <tr>
+    17:         <td><%= alarm.name %></td>
+    18:         <td><%= alarm.reason %></td>
+    19:         <td><%= alarm.votes %></td>
+    20:         <td><%= link_to 'Show', alarm %></td>
+    21:         <td><%= link_to 'Upvote', alarm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    22:       </tr>
+  
+app/views/alarms/index.html.erb:19:in `block in _app_views_alarms_index_html_erb__256040949212198309_70242723688640'
+app/views/alarms/index.html.erb:15:in `_app_views_alarms_index_html_erb__256040949212198309_70242723688640'
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:49:12 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (8.6ms)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.7ms)
+
+
+  
+ActionView::Template::Error (undefined method `votes' for #<Alarm:0x00007fc5579599e8>):
+    16:       <tr>
+    17:         <td><%= alarm.name %></td>
+    18:         <td><%= alarm.reason %></td>
+    19:         <td><%= alarm.votes %></td>
+    20:         <td><%= link_to 'Show', alarm %></td>
+    21:         <td><%= link_to 'Upvote', alarm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    22:       </tr>
+  
+app/views/alarms/index.html.erb:19:in `block in _app_views_alarms_index_html_erb__256040949212198309_70242777613720'
+app/views/alarms/index.html.erb:15:in `_app_views_alarms_index_html_erb__256040949212198309_70242777613720'
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:50:23 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (5.3ms)
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.2ms)
+
+
+  
+ActionView::Template::Error (undefined method `votes' for #<Alarm:0x00007fc5560ea7e0>):
+    16:       <tr>
+    17:         <td><%= alarm.name %></td>
+    18:         <td><%= alarm.reason %></td>
+    19:         <td><%= alarm.votes %></td>
+    20:         <td><%= link_to 'Show', alarm %></td>
+    21:         <td><%= link_to 'Upvote', alarm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    22:       </tr>
+  
+app/views/alarms/index.html.erb:19:in `block in _app_views_alarms_index_html_erb__256040949212198309_70242770164120'
+app/views/alarms/index.html.erb:15:in `_app_views_alarms_index_html_erb__256040949212198309_70242770164120'
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:50:41 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 26ms (Views: 21.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/5" for 127.0.0.1 at 2017-11-09 13:50:43 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (7.9ms)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.2ms)
+
+
+  
+ActionView::Template::Error (undefined method `votes' for #<Alarm:0x00007fc55173c9b8>):
+    12: 
+    13: <p>
+    14:   <strong>Votes:</strong>
+    15:   <%= @alarm.votes %>
+    16: </p>
+    17: 
+    18: <%= link_to 'Back', alarms_path %>
+  
+app/views/alarms/show.html.erb:15:in `_app_views_alarms_show_html_erb___4548316705133799385_70242725882120'
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:51:18 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 21ms (Views: 19.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:51:28 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 15ms (Views: 13.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/5" for 127.0.0.1 at 2017-11-09 13:51:29 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 19ms (Views: 16.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:51:31 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 24ms (Views: 21.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/6" for 127.0.0.1 at 2017-11-09 13:51:33 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"6"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 21ms (Views: 18.0ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:51:35 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 24ms (Views: 20.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:52:31 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 19ms (Views: 17.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/5" for 127.0.0.1 at 2017-11-09 13:52:34 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 15ms (Views: 13.3ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:52:35 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 23ms (Views: 20.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/5" for 127.0.0.1 at 2017-11-09 13:52:37 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 16ms (Views: 14.0ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:52:39 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 21ms (Views: 19.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/5" for 127.0.0.1 at 2017-11-09 13:52:44 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 20ms (Views: 17.9ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:52:45 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 20ms (Views: 17.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/5" for 127.0.0.1 at 2017-11-09 13:52:58 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 15ms (Views: 12.8ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:53:00 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 22ms (Views: 20.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:53:01 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 17ms (Views: 14.3ms | ActiveRecord: 0.1ms)
+
+
+Started DELETE "/alarms/5" for 127.0.0.1 at 2017-11-09 13:53:03 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"85gJjESvZIbLegQe2RHJxQpBWsY8EQi+cIr9Dns836B5Sedo1Yhebcb6Lt/8k2TFlMAqPdXMWBM5Wj97BtuibA==", "id"=>"5"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 5]]
+  [1m[35m (6.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 9ms (ActiveRecord: 6.6ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:53:03 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 20ms (Views: 17.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:53:25 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (5.7ms)
+Completed 200 OK in 19ms (Views: 16.5ms | ActiveRecord: 0.6ms)
+
+
+Started DELETE "/alarms/6" for 127.0.0.1 at 2017-11-09 13:53:27 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"e9Xxtk3DFwWpgBy1qpu1xDIyGTZpMpxYG3JI+HymcovxBB9S3OQt7qQANnSPGRjErLNpzYDvzPVSooqNAUEPRw==", "id"=>"6"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:53:27 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 19ms (Views: 17.3ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/6" for 127.0.0.1 at 2017-11-09 13:53:30 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"ZkZJX1WKBKOn0DvJGHV0a/S2xvtQ+mEkCp2EvJC7Y8/sl6e7xK0+SKpQEQg999lraje2ALknMYlDTUbJ7VweAw==", "id"=>"6"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:53:30 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 18ms (Views: 16.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 13:55:31 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (2.0ms)
+  Rendered alarms/new.html.erb within layouts/application (4.2ms)
+Completed 200 OK in 25ms (Views: 23.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:56:12 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (5.5ms)
+Completed 200 OK in 19ms (Views: 16.3ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/alarms/6" for 127.0.0.1 at 2017-11-09 13:56:14 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"6"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 20ms (Views: 17.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:56:14 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 20ms (Views: 17.2ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/6" for 127.0.0.1 at 2017-11-09 13:56:17 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"dZ3WXGnFDmUvaQeOrLPtCGhTB2yLGWZgYE+wUaPT0tz/TDi4+OI0jiLpLU+JMUAI9tJ3l2LENs0pn3Ik3jSvEA==", "id"=>"6"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 13:56:17 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.3ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 19ms (Views: 16.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:04:57 -0500
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.4ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (7.9ms)
+Completed 200 OK in 168ms (Views: 156.3ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/alarms/6" for 127.0.0.1 at 2017-11-09 14:05:00 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"6"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 21ms (Views: 15.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:05:01 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 22ms (Views: 19.5ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/6" for 127.0.0.1 at 2017-11-09 14:05:04 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"YyLWi8CPknAnTeMqz2D1cBawdsJ2s//hDaCgceV7FwTp8zhvUaiomyrNyevq4lhwiDEGOZ9ur0xEcGIEmJxqyA==", "id"=>"6"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 2ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:05:04 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (17.9ms)
+Completed 200 OK in 41ms (Views: 37.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 14:09:09 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (22.4ms)
+  Rendered alarms/new.html.erb within layouts/application (24.9ms)
+Completed 200 OK in 64ms (Views: 49.7ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 14:09:15 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"mGwxmSsCfv3GU+zEHZPSWcdVJoVUms6JEBEiBvEh4fTu4nfjvVPSAZkya819iC0Wt7Mldem9Lfa2JREf34zeaw==", "alarm"=>{"name"=>"test7", "reason"=>"test7"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "test7"], ["reason", "test7"], ["created_at", "2017-11-09 19:09:15.570188"], ["updated_at", "2017-11-09 19:09:15.570188"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Completed 500 Internal Server Error in 69ms (ActiveRecord: 1.7ms)
+
+
+  
+SocketError (Failed to open TCP connection to www.handshake-bellbird.com:80 (getaddrinfo: nodename nor servname provided, or not known)):
+  
+app/controllers/alarms_controller.rb:34:in `block in create'
+app/controllers/alarms_controller.rb:29:in `create'
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:10:18 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 25ms (Views: 17.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:12:47 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (6.4ms)
+Completed 200 OK in 30ms (Views: 26.8ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 14:12:48 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (2.4ms)
+  Rendered alarms/new.html.erb within layouts/application (4.7ms)
+Completed 200 OK in 25ms (Views: 23.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 14:12:53 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"jwgWxp8gD97QnSCkQGznP/ZZ+TIRiM6CZa1phGAyk+/5hlC8CXGjIo/8p60gdxhwhr/6wqyvLf3DmVqdTp+scA==", "alarm"=>{"name"=>"test8", "reason"=>"test8"}, "commit"=>"Create Alarm"}
+Unpermitted parameter: :name
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "alarms" ("reason", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["reason", "test8"], ["created_at", "2017-11-09 19:12:53.503312"], ["updated_at", "2017-11-09 19:12:53.503312"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 1.3ms)
+
+
+  
+SocketError (Failed to open TCP connection to www.handshake-bellbird.com:80 (getaddrinfo: nodename nor servname provided, or not known)):
+  
+app/controllers/alarms_controller.rb:34:in `block in create'
+app/controllers/alarms_controller.rb:29:in `create'
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:13:09 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (10.4ms)
+Completed 200 OK in 25ms (Views: 21.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/alarms/10" for 127.0.0.1 at 2017-11-09 14:13:16 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mAlarm Load (0.4ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 20ms (Views: 15.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:13:17 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 21ms (Views: 18.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:14:14 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (6.4ms)
+Completed 200 OK in 20ms (Views: 17.6ms | ActiveRecord: 0.7ms)
+
+
+Started DELETE "/alarms/10" for 127.0.0.1 at 2017-11-09 14:14:18 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"sY0cvySero98lQSjzIPfJHSvNdb0zR0ftUTBIduqNhg7XPJbtbmUZHEVLmLpAXIk6i5FLR0QTbL8lANUpk1L1A==", "id"=>"10"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:14:18 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 25ms (Views: 23.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 14:14:19 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (2.0ms)
+  Rendered alarms/new.html.erb within layouts/application (3.7ms)
+Completed 200 OK in 24ms (Views: 22.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 14:14:26 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"wP/TdeVb73b9tvJfEzYv1K/zwRa5huHV41NqOKF+Xlq2cZUPcwpDiqLXdVZzLdCb3xXC5gShAqpFZ1khj9NhxQ==", "alarm"=>{"name"=>"test9", "reason"=>"test9"}, "commit"=>"Create Alarm"}
+Unpermitted parameter: :name
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "alarms" ("reason", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["reason", "test9"], ["created_at", "2017-11-09 19:14:26.273111"], ["updated_at", "2017-11-09 19:14:26.273111"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/11
+Completed 302 Found in 3ms (ActiveRecord: 1.0ms)
+
+
+Started GET "/alarms/11" for 127.0.0.1 at 2017-11-09 14:14:26 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"11"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 14ms (Views: 11.7ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:14:27 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 20ms (Views: 17.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:23:48 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (6.4ms)
+Completed 200 OK in 32ms (Views: 27.9ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 14:23:49 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (2.6ms)
+  Rendered alarms/new.html.erb within layouts/application (5.7ms)
+Completed 200 OK in 36ms (Views: 28.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 14:23:56 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"9F+8464MCFYzD7PcUmIKFARnPF2NDDdqpH5yaDUPceyC0fqZOF2kqmxuNNUyefVbdIE/rTAr1BUCSkFxG6JOcw==", "alarm"=>{"name"=>"test9", "reason"=>"test9"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "test9"], ["reason", "test9"], ["created_at", "2017-11-09 19:23:56.554903"], ["updated_at", "2017-11-09 19:23:56.554903"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 1.1ms)
+
+
+  
+SocketError (Failed to open TCP connection to www.handshake-bellbird.com:80 (getaddrinfo: nodename nor servname provided, or not known)):
+  
+app/controllers/alarms_controller.rb:41:in `block in create'
+app/controllers/alarms_controller.rb:31:in `create'
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:24:53 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (7.2ms)
+Completed 200 OK in 24ms (Views: 19.6ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/alarms/12" for 127.0.0.1 at 2017-11-09 14:24:55 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"12"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 12], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 21ms (Views: 17.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:24:56 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 23ms (Views: 21.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 14:24:58 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (2.6ms)
+  Rendered alarms/new.html.erb within layouts/application (5.3ms)
+Completed 200 OK in 26ms (Views: 23.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 14:25:03 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"PZgT9l/2/55nKuE/yA2UCRWcGew86cZPPvbFGl/dYA9LFlWMyadTYjhLZjaoFmtGZXoaHIHOJTCYwvYDcXBfkA==", "alarm"=>{"name"=>"test10", "reason"=>"test10"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "test10"], ["reason", "test10"], ["created_at", "2017-11-09 19:25:03.409959"], ["updated_at", "2017-11-09 19:25:03.409959"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Completed 500 Internal Server Error in 50ms (ActiveRecord: 1.3ms)
+
+
+  
+SocketError (Failed to open TCP connection to www.handshake-bellbird.com:80 (getaddrinfo: nodename nor servname provided, or not known)):
+  
+app/controllers/alarms_controller.rb:41:in `block in create'
+app/controllers/alarms_controller.rb:31:in `create'
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:26:17 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (13.3ms)
+Completed 200 OK in 32ms (Views: 29.3ms | ActiveRecord: 0.8ms)
+
+
+Started DELETE "/alarms/13" for 127.0.0.1 at 2017-11-09 14:26:20 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"T5xq5/bJgMdR1RH9+B3wnMsPFjBmQKcSm1OOE4B7BzrFTYQDZ+66LFxVOzzdn12cVY5my4+d97/Sg0xm/Zx69g==", "id"=>"13"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 13], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.2ms)
+
+
+  
+NoMethodError (undefined method `delete' for nil:NilClass):
+  
+app/controllers/alarms_controller.rb:67:in `block in destroy'
+app/controllers/alarms_controller.rb:66:in `destroy'
+Started GET "/alarms/13" for 127.0.0.1 at 2017-11-09 14:27:01 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"13"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 13], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 23ms (Views: 14.1ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:27:02 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 24ms (Views: 22.6ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/12" for 127.0.0.1 at 2017-11-09 14:27:08 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"I/EpVMFfZUu1OkE5pU+29IN7ZlMz71zpXPku/o6hm0mpIMewUHhfoLi6a/iAzRv0HfoWqNoyDEQVKeyL80bmhQ==", "id"=>"12"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 12], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.2ms)
+
+
+  
+NoMethodError (undefined method `delete' for nil:NilClass):
+  
+app/controllers/alarms_controller.rb:67:in `block in destroy'
+app/controllers/alarms_controller.rb:66:in `destroy'
+Started GET "/alarms/12" for 127.0.0.1 at 2017-11-09 14:28:06 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"12"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 12], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 19ms (Views: 11.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:28:07 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (3.8ms)
+Completed 200 OK in 27ms (Views: 24.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/11" for 127.0.0.1 at 2017-11-09 14:28:09 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"11"}
+  [1m[36mAlarm Load (0.3ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 21ms (Views: 18.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:28:11 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 20ms (Views: 17.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 14:28:19 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (1.8ms)
+  Rendered alarms/new.html.erb within layouts/application (3.5ms)
+Completed 200 OK in 27ms (Views: 24.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 14:28:26 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"xZ0GQ8rAeENBO1EsC5wBKQ+6ullq7YPmxsxqc3ZUfC+zE0A5XJHUvx5a1iVrh/5mf1y5qdfKYJlg+FlqWPlDsA==", "alarm"=>{"name"=>"test11", "reason"=>"test11"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "test11"], ["reason", "test11"], ["created_at", "2017-11-09 19:28:26.999807"], ["updated_at", "2017-11-09 19:28:26.999807"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 1.0ms)
+
+
+  
+SocketError (Failed to open TCP connection to www.handshake-bellbird.com:80 (getaddrinfo: nodename nor servname provided, or not known)):
+  
+app/controllers/alarms_controller.rb:41:in `block in create'
+app/controllers/alarms_controller.rb:31:in `create'
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 14:31:57 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"xZ0GQ8rAeENBO1EsC5wBKQ+6ullq7YPmxsxqc3ZUfC+zE0A5XJHUvx5a1iVrh/5mf1y5qdfKYJlg+FlqWPlDsA==", "alarm"=>{"name"=>"test11", "reason"=>"test11"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "test11"], ["reason", "test11"], ["created_at", "2017-11-09 19:31:57.951440"], ["updated_at", "2017-11-09 19:31:57.951440"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/15
+Completed 302 Found in 12ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/alarms/15" for 127.0.0.1 at 2017-11-09 14:31:57 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"15"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 15], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 16ms (Views: 13.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:31:59 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 25ms (Views: 22.6ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/11" for 127.0.0.1 at 2017-11-09 14:33:17 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"rlt/o2eMgeP82gJMZxKO5IYo9Idbrz254+VtdhDe2TkkipFH9qu7CPFaKI1CkCPkGKmEfLJybRSqNa8DbTmk9Q==", "id"=>"11"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 11]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 11ms (ActiveRecord: 1.7ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:33:17 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 18ms (Views: 16.3ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/10" for 127.0.0.1 at 2017-11-09 14:33:20 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"uEcRNOjR1fn4KLtxrjejI/bccjKvTYnEEVtrt+iDo8Aylv/QefbvEvWokbCLtQ4jaF0CyUaQ2WlYi6nClWTeDA==", "id"=>"10"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 10]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 4ms (ActiveRecord: 1.5ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:33:20 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.4ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 19ms (Views: 16.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:37:36 -0500
+Processing by AlarmsController#index as HTML
+Completed 500 Internal Server Error in 13ms
+
+
+  
+NoMethodError (undefined method `find_all_by_datefrom' for Alarm (call 'Alarm.connection' to establish a connection):Class):
+  
+app/controllers/alarms_controller.rb:7:in `index'
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:38:04 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (6.5ms)
+Completed 200 OK in 20ms (Views: 17.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/alarms/6" for 127.0.0.1 at 2017-11-09 14:41:11 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"6"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 29ms (Views: 17.4ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:41:17 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 22ms (Views: 19.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:42:35 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 22ms (Views: 19.9ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/15" for 127.0.0.1 at 2017-11-09 14:42:58 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"hY2Z2oJuVkciKaQxXTG5JgNtMe6c6cO+hl4BRD8D7jAPXHc+E0lsrC+pjvB4sxQmnexBFXU0kxPPjsMxQuST/A==", "id"=>"15"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 15], ["LIMIT", 1]]
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 2ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:42:58 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 20ms (Views: 18.3ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/14" for 127.0.0.1 at 2017-11-09 14:43:01 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"vZIoZVX6eZWnZ/cMIcusF0hmDXva9LPfHrOD/M0XtSI3Q8aBxN1Dfqrn3c0ESQEX1ud9gDMp43JXY0GJsPDI7g==", "id"=>"14"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:43:01 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 18ms (Views: 16.0ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/13" for 127.0.0.1 at 2017-11-09 14:43:04 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"gFKgqZZ+dO+/5yOBvZXMsIRBVVNBF4iHRhhcr1ti5iUKg05NB1lOBLJnCUCYF2GwGsAlqKjK2CoPyJ7aJoWb6Q==", "id"=>"13"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 13], ["LIMIT", 1]]
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:43:04 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 20ms (Views: 17.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:44:02 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 17ms (Views: 14.7ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 14:44:12 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (2.4ms)
+  Rendered alarms/new.html.erb within layouts/application (4.5ms)
+Completed 200 OK in 31ms (Views: 23.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 14:44:23 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Sbfj7QLiXByJiLIShqDNDPcWoI5+ct5vqXMjqPZZdGE/OaWXlLPw4NbpNRvmuzJDh/CjfsNVPRAPRxCx2PRL/g==", "alarm"=>{"name"=>"test11", "reason"=>"test11"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "test11"], ["reason", "test11"], ["created_at", "2017-11-09 19:44:23.781903"], ["updated_at", "2017-11-09 19:44:23.781903"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/16
+Completed 302 Found in 5ms (ActiveRecord: 1.2ms)
+
+
+Started GET "/alarms/16" for 127.0.0.1 at 2017-11-09 14:44:23 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"16"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 16], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 19ms (Views: 16.5ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:44:25 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.3ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (4.7ms)
+Completed 200 OK in 25ms (Views: 22.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:45:10 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (5.8ms)
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.2ms)
+
+
+  
+ActionView::Template::Error (undefined method `votes' for #<Alarm:0x00007fca6663d048>):
+    16:       <tr>
+    17:         <td><%= alarm.name.upcase %></td>
+    18:         <td><%= alarm.reason %></td>
+    19:         <td><%= alarm.votes %></td>
+    20: 
+    21:         <td><%= link_to 'Show', alarm %></td>
+    22:         <td><%= link_to 'Upvote', alarm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  
+app/views/alarms/index.html.erb:19:in `block in _app_views_alarms_index_html_erb___1692974501567847552_70253639020480'
+app/views/alarms/index.html.erb:15:in `each'
+app/views/alarms/index.html.erb:15:in `_app_views_alarms_index_html_erb___1692974501567847552_70253639020480'
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:46:50 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 20ms (Views: 17.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:47:01 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 19ms (Views: 17.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:47:05 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 14ms (Views: 12.9ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:47:38 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (141.9ms)
+Completed 500 Internal Server Error in 146ms (ActiveRecord: 0.2ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `votes' for #<#<Class:0x00007fca664d6830>:0x00007fca6a7906a8>):
+    18:       <tr>
+    19:         <td><%= alarm.name.upcase %></td>
+    20:         <td><%= alarm.reason %></td>
+    21:         <td><%= votes %></td>
+    22: 
+    23:         <td><%= link_to 'Show', alarm %></td>
+    24:         <td><%= link_to 'Upvote', alarm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  
+app/views/alarms/index.html.erb:21:in `block in _app_views_alarms_index_html_erb___1692974501567847552_70253673220500'
+app/views/alarms/index.html.erb:17:in `each'
+app/views/alarms/index.html.erb:17:in `_app_views_alarms_index_html_erb___1692974501567847552_70253673220500'
+Started GET "/alarms/16" for 127.0.0.1 at 2017-11-09 14:47:47 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"16"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 16], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 17ms (Views: 14.5ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:47:49 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.3ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (4.3ms)
+Completed 200 OK in 27ms (Views: 25.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:48:26 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (9.6ms)
+Completed 500 Internal Server Error in 16ms (ActiveRecord: 0.6ms)
+
+
+  
+ActionView::Template::Error (undefined method `votes' for #<Alarm:0x00007fca664e54c0>):
+    18:       <tr>
+    19:         <td><%= alarm.name.upcase %></td>
+    20:         <td><%= alarm.reason %></td>
+    21:         <td><%= alarm.votes %></td>
+    22: 
+    23:         <td><%= link_to 'Show', alarm %></td>
+    24:         <td><%= link_to 'Upvote', alarm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  
+app/views/alarms/index.html.erb:21:in `block in _app_views_alarms_index_html_erb___1692974501567847552_70253687197920'
+app/views/alarms/index.html.erb:17:in `each'
+app/views/alarms/index.html.erb:17:in `_app_views_alarms_index_html_erb___1692974501567847552_70253687197920'
+Started GET "/alarms/16" for 127.0.0.1 at 2017-11-09 14:48:33 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"16"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 16], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 19ms (Views: 15.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:48:35 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (4.0ms)
+Completed 200 OK in 28ms (Views: 26.3ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/16" for 127.0.0.1 at 2017-11-09 14:48:49 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"iZF9vgkxZS1P0wMqUeQoEaD/Lb+cQWBCfAelcg6uu6MDQJNamBZfxkJTKet0ZoURPn5dRHWcMO8112cHc0nGbw==", "id"=>"16"}
+  [1m[36mAlarm Load (0.5ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 16], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 16]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 20ms (ActiveRecord: 3.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:48:49 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 27ms (Views: 25.0ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/15" for 127.0.0.1 at 2017-11-09 14:48:52 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"G5sp91cjn3KuMcqbnhpzB5owxwYTUYhokhUV1YZH7vyRSscTxgSlmaOx4Fq7mN4HBLG3/fqM2MXbxdeg+6CTMA==", "id"=>"15"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 15]]
+  [1m[35m (6.4ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 10ms (ActiveRecord: 6.9ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:48:52 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 21ms (Views: 18.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:49:05 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (6.5ms)
+Completed 200 OK in 21ms (Views: 18.5ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:49:25 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 20ms (Views: 17.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/14" for 127.0.0.1 at 2017-11-09 14:49:29 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 22ms (Views: 19.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:49:30 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 43ms (Views: 40.6ms | ActiveRecord: 0.1ms)
+
+
+Started DELETE "/alarms/14" for 127.0.0.1 at 2017-11-09 14:49:34 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"L30F1cemrh/bmIMh7Cx7/L7Dh9EvTH6OBD9dEgMC8kalrOsxVoGU9NYYqeDJrtb8IEL3KsaRLiNN759nfuWPig==", "id"=>"14"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:49:34 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 21ms (Views: 19.0ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/13" for 127.0.0.1 at 2017-11-09 14:49:36 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"aH4m0tTz0Dslof9y8yacQhRILRiRSE+SnJvvjimKuQvir8g2RdTq0Cgh1bPWpDFCisld43iVHz/VSy37VG3Exw==", "id"=>"13"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 13], ["LIMIT", 1]]
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:49:36 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 21ms (Views: 19.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:52:13 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 16ms (Views: 14.4ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/6" for 127.0.0.1 at 2017-11-09 14:52:31 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"EZAUwS8LuJMQs1opAqtRf8goZCv17JG+NIwYLxbygXabQfolviyCeB0zcOgnKfx/VqkU0BwxwRN9XNpaaxX8ug==", "id"=>"6"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 111ms (ActiveRecord: 1.0ms)
+
+
+  
+NameError (undefined local variable or method `alarm' for #<AlarmsController:0x00007fca6b9f8f98>
+Did you mean?  @alarm):
+  
+app/controllers/alarms_controller.rb:66:in `destroy'
+Started DELETE "/alarms/6" for 127.0.0.1 at 2017-11-09 14:52:50 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"EZAUwS8LuJMQs1opAqtRf8goZCv17JG+NIwYLxbygXabQfolviyCeB0zcOgnKfx/VqkU0BwxwRN9XNpaaxX8ug==", "id"=>"6"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 6]]
+  [1m[35m (5.9ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 18ms (ActiveRecord: 7.4ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:52:50 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 16ms (Views: 13.7ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/7" for 127.0.0.1 at 2017-11-09 14:52:52 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"7vBXXpKQr7dHBvJ/uyg3auHq66j29vQtS38KCTgnG6NkIbm6A7eVXEqG2L6eqppqf2ubUx8rpIACr8h8RcBmbw==", "id"=>"7"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 7]]
+  [1m[35m (6.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 9ms (ActiveRecord: 6.6ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:52:52 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 18ms (Views: 15.0ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/8" for 127.0.0.1 at 2017-11-09 14:52:55 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"Ii8doR69+MQPDD2kF2oV4OKg7bHcJTGDvR5aMRosAB+o/vNFj5rCLwKMF2Uy6LjgfCGdSjX4YS70zphEZ8t90w==", "id"=>"8"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 8]]
+  [1m[35m (521.0ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 523ms (ActiveRecord: 521.4ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:52:55 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 14ms (Views: 12.5ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/9" for 127.0.0.1 at 2017-11-09 14:52:58 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"35Tn5ZhfCsFeZ0J7v58HjfdEI8PinSFNriGHEvdC9uNVRQkBCXgwKlPnaLqaHaqNacVTOAtAceDn8UVniqWLLw==", "id"=>"9"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 9]]
+  [1m[35m (6.4ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 10ms (ActiveRecord: 6.9ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:52:58 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 18ms (Views: 14.5ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/12" for 127.0.0.1 at 2017-11-09 14:53:00 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"Ti4r+eI+PTGbnLpAmh1+c5tNXCqJ4rWhdjCwGbup1lzE/8UdcxkH2pYckIG/n9NzBcws0WA/5Qw/4HJsxk6rkA==", "id"=>"12"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 12]]
+  [1m[35m (6.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 9ms (ActiveRecord: 6.7ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:53:00 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.6ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (4.0ms)
+Completed 200 OK in 31ms (Views: 28.2ms | ActiveRecord: 0.6ms)
+
+
+Started DELETE "/alarms/13" for 127.0.0.1 at 2017-11-09 14:53:02 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"NUk8BDq8lgFY/OEhSs92wEpqORcSBn3vHAaZWK/CbPa/mNLgq5us6lV8y+BvTdvA1OtJ7PvbLUJV1lst0iUROg==", "id"=>"13"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 13]]
+  [1m[35m (6.3ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 9ms (ActiveRecord: 6.8ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:53:02 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 20ms (Views: 17.5ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/14" for 127.0.0.1 at 2017-11-09 14:53:05 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"epkNxRmxjmJM1EXGFjquUfTcMP8hjNd0SxwyjhGO/Y/wSOMhiJa0iUFUbwczuANRal1ABMhRh9kCzPD7bGmAQw==", "id"=>"14"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "alarms" WHERE "alarms"."id" = ?[0m  [["id", 14]]
+  [1m[35m (6.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 9ms (ActiveRecord: 6.7ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:53:05 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.3ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 16ms (Views: 14.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 14:53:07 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (2.3ms)
+  Rendered alarms/new.html.erb within layouts/application (10.7ms)
+Completed 200 OK in 28ms (Views: 26.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 14:53:18 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"FIDnDwmiCvtEjjs34FuKDmXm0pkMta8kaBiB2tKitktiDqF1n/OmBxvvvD6AQHVBFQDRabGSTFvOLLLD/A+J1A==", "alarm"=>{"name"=>"Alarm1", "reason"=>"Reason1"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Alarm1"], ["reason", "Reason1"], ["created_at", "2017-11-09 19:53:18.788691"], ["updated_at", "2017-11-09 19:53:18.788691"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/17
+Completed 302 Found in 3ms (ActiveRecord: 0.9ms)
+
+
+Started GET "/alarms/17" for 127.0.0.1 at 2017-11-09 14:53:18 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"17"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 17], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 17ms (Views: 14.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:53:20 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 23ms (Views: 20.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/17" for 127.0.0.1 at 2017-11-09 14:53:22 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"17"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 17], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 20ms (Views: 17.7ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:53:23 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 22ms (Views: 19.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 14:53:24 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (1.7ms)
+  Rendered alarms/new.html.erb within layouts/application (3.4ms)
+Completed 200 OK in 21ms (Views: 18.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 14:53:29 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"tUw9e4ilGQaj+/d3Iw+cIIXiRyYXtN5IsSew04o/BPHDwnsBHvS1+vyacH5DFGNv9QRE1qqTPTcXE4PKpJI7bg==", "alarm"=>{"name"=>"alarm2", "reason"=>"reason2"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "alarm2"], ["reason", "reason2"], ["created_at", "2017-11-09 19:53:29.959739"], ["updated_at", "2017-11-09 19:53:29.959739"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/18
+Completed 302 Found in 3ms (ActiveRecord: 1.0ms)
+
+
+Started GET "/alarms/18" for 127.0.0.1 at 2017-11-09 14:53:29 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"18"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 18], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 16ms (Views: 14.2ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:53:31 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 18ms (Views: 15.8ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:53:40 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (5.7ms)
+Completed 200 OK in 21ms (Views: 18.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/alarms/18" for 127.0.0.1 at 2017-11-09 14:53:41 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"18"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 18], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 23ms (Views: 19.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:53:42 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 29ms (Views: 27.1ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/18" for 127.0.0.1 at 2017-11-09 14:53:50 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"NxgkMeFnoa9Ra+EgPkhWaYoTqu5MWLdCJ8yZqww2bCy9ycrVcECbRFzry+EbyvtpFJLaFaWF5+9uHFvecdER4A==", "id"=>"18"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 18], ["LIMIT", 1]]
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 2ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:53:50 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 18ms (Views: 16.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms/new" for 127.0.0.1 at 2017-11-09 14:54:21 -0500
+Processing by AlarmsController#new as HTML
+  Rendering alarms/new.html.erb within layouts/application
+  Rendered alarms/_form.html.erb (2.4ms)
+  Rendered alarms/new.html.erb within layouts/application (4.1ms)
+Completed 200 OK in 23ms (Views: 21.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alarms" for 127.0.0.1 at 2017-11-09 14:54:47 -0500
+Processing by AlarmsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"fRggOMnQSRPnbo0yZbZ/Sq17as5+9vuADtnjPz2JsWALlmZCX4Hl77gPCjsFrYAF3Z1pPsPRGP+o7dAmEySO/w==", "alarm"=>{"name"=>"bellbird", "reason"=>"proejct"}, "commit"=>"Create Alarm"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "alarms" ("name", "reason", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "bellbird"], ["reason", "proejct"], ["created_at", "2017-11-09 19:54:47.940656"], ["updated_at", "2017-11-09 19:54:47.940656"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/alarms/19
+Completed 302 Found in 4ms (ActiveRecord: 0.9ms)
+
+
+Started GET "/alarms/19" for 127.0.0.1 at 2017-11-09 14:54:47 -0500
+Processing by AlarmsController#show as HTML
+  Parameters: {"id"=>"19"}
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 19], ["LIMIT", 1]]
+  Rendering alarms/show.html.erb within layouts/application
+  Rendered alarms/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 16ms (Views: 13.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:54:49 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 22ms (Views: 19.6ms | ActiveRecord: 0.1ms)
+
+
+Started DELETE "/alarms/17" for 127.0.0.1 at 2017-11-09 14:55:30 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"aiAflCpgXBp8rsoQb8CVSMi44zs4NNZGvVBAKE7WRiDg8fFwu0dm8XEu4NFKQjhIVjmTwNHphuv0gIJdMzE77A==", "id"=>"17"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 17], ["LIMIT", 1]]
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:55:30 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 18ms (Views: 16.2ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/alarms/19" for 127.0.0.1 at 2017-11-09 14:55:33 -0500
+Processing by AlarmsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"FtUGO/HjNf0Ea3uB8JqUSv37+41el+ut2Kapwy9reCecBOjfYMQPFgnrUUDVGDlKY3qLdrdKuwCRdmu2UowF6w==", "id"=>"19"}
+  [1m[36mAlarm Load (0.1ms)[0m  [1m[34mSELECT  "alarms".* FROM "alarms" WHERE "alarms"."id" = ? LIMIT ?[0m  [["id", 19], ["LIMIT", 1]]
+Redirected to http://localhost:3000/alarms
+Completed 302 Found in 2ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/alarms" for 127.0.0.1 at 2017-11-09 14:55:33 -0500
+Processing by AlarmsController#index as HTML
+  Rendering alarms/index.html.erb within layouts/application
+  [1m[36mAlarm Load (0.2ms)[0m  [1m[34mSELECT "alarms".* FROM "alarms"[0m
+  Rendered alarms/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 18ms (Views: 15.8ms | ActiveRecord: 0.2ms)
+
+

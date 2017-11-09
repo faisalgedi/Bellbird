@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Alarms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Reason</th>
+      <th>Votes</th>
+
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @alarms.reverse.each do |alarm| %>
+      <tr>
+        <td><%= alarm.name.upcase %></td>
+        <td><%= alarm.reason %></td>
+        <td><%= 0  %></td>
+        <td><%= link_to 'Show', alarm %></td>
+        <td><%= link_to 'Upvote', alarm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Alarm', new_alarm_path %>
